@@ -1,0 +1,22 @@
+- hosts: all
+  roles:
+    - { role: Datadog.datadog, become: yes }  # On Ansible < 1.9, use `sudo: yes` instead of `become: yes`
+  vars:
+    # use the bash script `run.sh` to run Vagrant, it will replace the value
+    # below w/ the key from your a `conf.sh` file -- alternatively you can
+    # supply the value yourself, see the README on how to do this.
+    datadog_api_key: "YOURKEYHERE"
+    datadog_config:
+      tags: "test, ansible"
+      log_level: INFO
+    datadog_checks:
+      process:
+        init_config:
+        instances:
+          - name: ssh
+            search_string: ['ssh', 'sshd' ]
+          - name: syslog
+            search_string: ['rsyslog' ]
+            cpu_check_interval: 0.2
+            exact_match: true
+            ignore_denied_access: true
