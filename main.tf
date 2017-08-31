@@ -54,7 +54,7 @@ resource "aws_instance" "ansible_datadog" {
     command = <<EOF
 sleep 120
 ANSIBLE_HOST_KEY_CHECKING=False
-ansible-playbook -u ubuntu --private-key ~/.ssh/kelner_key -i '${aws_instance.ansible_datadog.public_ip},' playbook_secret.yml
+ansible-playbook -u ubuntu --private-key ~/.ssh/kelner_key -i '${aws_instance.ansible_datadog.public_ip},' -v playbook_secret.yml
 EOF
   }
 }
