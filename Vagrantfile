@@ -7,6 +7,9 @@ Vagrant.configure("2") do |config|
   # Image to use
   config.vm.box = "ubuntu/xenial64"
 
+  # NOTE: @ckelner => This is the wrong way to do this I think; We should
+  # install the role locally, then through a shared folder mount it? But
+  # honestly I'm not sure, IANA Ansible Expert...
   # Run aptitude update and install ansible and ansible modules
   config.vm.provision "shell" do |shell|
     shell.inline = <<-SHELL
