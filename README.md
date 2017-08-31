@@ -23,3 +23,7 @@ You'll need to either:
     `.gitignore`) and modify it to include your API key in place of
     `YOURKEYHERE`
   - Run `vagrant up` as usual
+
+Then you can verify the agent is running by:
+- `vagrant ssh`
+- `sudo /etc/init.d/datadog-agent info`
