@@ -16,11 +16,27 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+resource "aws_security_group" "allow_all" {
+  name        = "allow_all_temp_test"
+  description = "Allow all inbound traffic - TEMPORARY FOR ANSIBLE TESTING"
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags {
+    Name = "allow_all_temp_test"
+    "Terraform" = "true"
+  }
+}
+
 resource "aws_instance" "ansible_datadog" {
   ami = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
   associate_public_ip_address = true
   key_name = "kelner" # NOTE: You'll need to change this to whatever your keypair value is named
+  vpc_security_group_ids = [ "${aws_security_group.allow_all.id}" ]
   tags {
     Name = "datadog-ansible-example"
     "Terraform" = "true"

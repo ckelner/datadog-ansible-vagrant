@@ -3,3 +3,7 @@ conf.sh
 playbook_secret.yml
 *.log
 .terraform
+*.info
+playbook_secret.retry
+terraform.tfstate
+terraform.tfstate.backup
